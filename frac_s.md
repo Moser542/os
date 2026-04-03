@@ -81,3 +81,45 @@ $$\sup_{h > 0} \frac{\|\Delta_h^m u\|_{L^p}}{h^s} < \infty$$
 ---
 
 这些定义中，**Gagliardo 半范**是最直接的"不看傅里叶"的方式。它在有界域上尤其好用，积分只在 $\Omega \times \Omega$ 上做，不涉及延拓到全空间。
+
+---
+
+## 迹定理（Trace Theorem）
+
+### 定义（迹算子）
+
+设 $\Omega \subset \mathbb{R}^n$ 为有界开集，$\partial\Omega \in C^{0,1}$，$1 \leq p < \infty$。称 $T: W^{1,p}(\Omega) \to L^1_{\text{loc}}(\partial\Omega)$ 为迹算子，若
+
+$$\forall u \in W^{1,p}(\Omega) \cap C^1(\overline{\Omega}), \quad Tu = u|_{\partial\Omega}$$
+
+### 定理
+
+存在唯一的线性算子 $T: W^{1,p}(\Omega) \to W^{1-1/p,p}(\partial\Omega)$ 使得：
+
+**1. 连续性**
+
+$$\exists C = C(n, p, \Omega) > 0, \quad \forall u \in W^{1,p}(\Omega): \quad \|Tu\|_{W^{1-1/p,p}(\partial\Omega)} \leq C \|u\|_{W^{1,p}(\Omega)}$$
+
+**2. 稠密延拓性**
+
+$C^\infty(\overline{\Omega})$ 在 $W^{1,p}(\Omega)$ 中稠密，且
+
+$$\forall u \in W^{1,p}(\Omega), \quad Tu = \lim_{k \to \infty} u_k|_{\partial\Omega}$$
+
+其中 $u_k \in C^\infty(\overline{\Omega})$，$\|u_k - u\|_{W^{1,p}} \to 0$。
+
+**3. 像空间刻画**
+
+$$T(W^{1,p}(\Omega)) = W^{1-1/p,p}(\partial\Omega)$$
+
+且存在有界线性延拓算子 $E: W^{1-1/p,p}(\partial\Omega) \to W^{1,p}(\Omega)$ 使得 $T \circ E = \text{Id}$。
+
+### 分数阶空间 $W^{s,p}(\partial\Omega)$ 定义（$s = 1-1/p$）
+
+设 $\{\phi_i\}_{i=1}^N$ 为 $\partial\Omega$ 的单位分解，$\kappa_i: U_i \to \mathbb{R}^{n-1}$ 为局部坐标映射，则 $v \in W^{s,p}(\partial\Omega)$ 当且仅当
+
+$$\|v\|_{W^{s,p}(\partial\Omega)} = \sum_{i=1}^N \|(v \circ \kappa_i^{-1})\phi_i\|_{W^{s,p}(\mathbb{R}^{n-1})} < \infty$$
+
+其中 $W^{s,p}(\mathbb{R}^{n-1})$ 的 Gagliardo 范数为：
+
+$$\|f\|_{W^{s,p}}^p = \int_{\mathbb{R}^{n-1}} |f|^p \,dx + \int_{\mathbb{R}^{n-1}} \int_{\mathbb{R}^{n-1}} \frac{|f(x) - f(y)|^p}{|x - y|^{(n-1) + sp}} \,dx\, dy$$
