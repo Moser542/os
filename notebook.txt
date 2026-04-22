@@ -44,3 +44,13 @@ dd，删除当前行并将其存入缓存区。p，粘贴在下方；P，粘贴�
 :m +3，:1,3m $
 
 ctrl+r，反撤销
+
+---
+1. dataset.map
+
+默认`逐行处理`, batched=True 默认1k行。num_proc=4多进程并行。自带tqdm进度条。
+
+2. tokenizer
+- .tokenize(str): 切词，根据参数是否包含特殊符号，返回list[str]
+- .encode(str): 切词+编码，默认可能有特殊符号，返回list[int]
+- .apply_chat_template: 格式化
