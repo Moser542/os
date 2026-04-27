@@ -54,3 +54,6 @@ ctrl+r，反撤销
 - .tokenize(str): 切词，根据参数是否包含特殊符号，返回list[str]
 - .encode(str): 切词+编码，默认可能有特殊符号，返回list[int]
 - .apply_chat_template: 格式化
+
+---
+uv pip install vllm --dry-run：先查看依赖，不安装

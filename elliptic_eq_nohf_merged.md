@@ -225,8 +225,6 @@ $$
 \alpha_1! \cdots \alpha_n! \le (|\alpha|)!.
 $$
 
-□
-
 THEOREM 1.14 Harmonic function is analytic.
 
 PROOF: Suppose $u$ is a harmonic function in $\Omega$. For fixed $x \in \Omega$, take $B_{2R}(x) \subset \Omega$ and $h \in \mathbb{R}^n$ with $|h| \le R$. We have by Taylor expansion
@@ -359,7 +357,7 @@ $$
 
 Differentiating with respect to $r$ again we get (1.2). $\square$
 
-1.3. Fundamental Solutions
+## 1.3. Fundamental Solutions
 
 We begin this section by seeking a harmonic function $u$, that is, $\Delta u = 0$ in $\mathbb{R}^n$, which depends only on $r = |x - a|$ for some fixed $a \in \mathbb{R}^n$. We set $v(r) = u(x)$. This implies
 
@@ -723,9 +721,7 @@ $$
 
 that is $w = 0$ in $B_R \setminus \{0\}$.
 
-□
-
-1.4. Maximum Principles
+## 1.4. Maximum Principles
 
 In this section we will use the maximum principle to derive the interior gradient estimate and the Harnack inequality.
 
@@ -997,7 +993,7 @@ $$
 
 This proves (1.7).
 
-1.5. Energy Method
+## 1.5. Energy Method
 
 In this section we discuss harmonic functions by using the energy method. In general we assume throughout this section that $a_{ij} \in C(B_1)$ satisfies
 
@@ -5202,9 +5198,7 @@ $$
 |A| \le \sum_i |A \cap \tilde{Q}^i| \le \delta \sum_i |\tilde{Q}^i| \le \delta|B|.
 $$
 
-□
-
-5.3. Harnack Inequality
+## 5.3. Harnack Inequality
 
 The main result in this section is the following Harnack inequality.
 
@@ -6017,7 +6011,7 @@ $$
 
 where $C$ is a positive constant depending only on $n, \lambda, \Lambda$, and $\alpha$.
 
-5.5. $W^{2,p}$ Estimates
+## 5.5. $W^{2,p}$ Estimates
 
 In this section we will prove the $W^{2,p}$-estimates for viscosity solutions. We always assume throughout this section that $a_{ij} \in C(B_1)$ satisfies
 
@@ -6315,7 +6309,7 @@ $$
 
 This finishes the proof.
 
-5.6. Global Estimates
+## 5.6. Global Estimates
 
 In the previous two sections, we derived interior Schauder estimates and $W^{2,p}$-estimates for viscosity solutions. In fact, these estimates hold globally. In this section, we state these results without proof for classical solutions of Dirichlet problems for general linear elliptic equations. These results will be needed in the next chapter.
 
@@ -6368,7 +6362,7 @@ Existence of Solutions
 
 In this chapter we will discuss the existence of solutions of some boundary value problems for elliptic differential equations. We will illustrate several methods.
 
-6.1. Perron Method
+## 6.1. Perron Method
 
 In this section we will discuss the existence of solutions by the Perron method, where we prove the existence of solutions of Dirichlet problems for elliptic operators on general domains when solutions of the same problems on balls are known to exist. We will illustrate this by the Laplace operator.
 
