@@ -1,0 +1,516 @@
+\documentclass[11pt]{ctexart}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=2.4cm]{geometry}
+\usepackage{enumitem}
+
+\newcommand{\fint}{\,\rlap{$-$}\!\int}
+\newcommand{\R}{\mathbb{R}}
+\DeclareMathOperator*{\essinf}{ess\,inf}
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclareMathOperator{\dv}{div}
+\DeclareMathOperator{\supp}{supp}
+\newcommand{\ub}{\bar{u}}
+\newcommand{\eps}{\varepsilon}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{定理}
+\newtheorem{lemma}{引理}
+\newtheorem{proposition}{命题}
+\newtheorem{corollary}{推论}
+\theoremstyle{definition}
+\newtheorem{definition}{定义}
+\newtheorem{remark}{注}
+
+\title{$p$-Laplace 非负弱上解的强极小值原理}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+设 $1<p<n$，$u\in W^{1,p}_{\mathrm{loc}}(\R^n)$，$u\ge0$，且在弱意义下
+$-\Delta_p u\ge0$。本文从 De Giorgi--Nash--Moser 方法出发，完整证明弱
+Harnack 不等式，并由此导出二分法：$u\equiv0$ 或 $u>0$。所需引理（幂函数
+能量估计、负指数 Moser 迭代、对数 BMO 估计、John--Nirenberg 不等式）均给出
+完整证明，不引用现成结论。
+\end{abstract}
+
+\section{设置、约定与主定理}
+
+在全文中 $1<p<n$，记 $p^*=\frac{np}{n-p}$ 为 Sobolev 临界指数，
+$\Delta_p u=\dv(|\nabla u|^{p-2}\nabla u)$。以 $B_r(y)$ 记以 $y$ 为心、
+$r$ 为半径的开球；省略中心时表示同心球。$\fint_E f=\frac1{|E|}\int_E f$
+表示平均。字母 $C,c$ 表示仅依赖 $n,p$ 的正常数，同一行中可取不同值。
+
+\begin{definition}[弱上解]
+称 $u\in W^{1,p}_{\mathrm{loc}}(\R^n)$ 为 $-\Delta_p u\ge0$ 的\emph{弱上解}，
+若
+\begin{equation}\label{eq:supersol}
+\int_{\R^n}|\nabla u|^{p-2}\nabla u\cdot\nabla\varphi\,dx\ \ge\ 0,
+\qquad \forall\,\varphi\in C_c^\infty(\R^n),\ \varphi\ge0.
+\end{equation}
+\end{definition}
+
+这里 $W_0^{1,p}(\Omega)$ 记 $C_c^\infty(\Omega)$ 在 $W^{1,p}$ 范数下的
+闭包。由 $C_c^\infty(\Omega)$ 在 $W_0^{1,p}(\Omega)$ 中稠密以及积分泛函
+$\varphi\mapsto\int|\nabla u|^{p-2}\nabla u\cdot\nabla\varphi$ 的
+$W^{1,p}$-连续性，\eqref{eq:supersol} 对一切非负
+$\varphi\in W_0^{1,p}(\Omega)$（$\Omega\Subset\R^n$ 任一有界开集，
+$\supp\varphi\Subset\Omega$）成立。特别地，凡有界、非负、紧支且属
+$W^{1,p}$ 的 $\varphi$ 均落在某个 $W_0^{1,p}(\Omega)$ 中，故可作检验函数。
+下文的检验函数均由截断 $\eta\in C_c^\infty$ 与幂函数 $\ub^{\beta}$ 复合而
+成：$\ub\ge\eps>0$ 时 $\ub^\beta$ 为有界 Lipschitz 函数，与
+$W^{1,p}\cap L^\infty$ 元素复合仍属 $W^{1,p}$，乘以 $\eta^p$ 后有界、紧支，
+故属相应的 $W_0^{1,p}(\Omega)$，合法性由此保证（各引理不再重复说明）。
+
+\begin{theorem}[强极小值原理]\label{thm:main}
+设 $1<p<n$，$u\in W^{1,p}_{\mathrm{loc}}(\R^n)$，$u\ge0$，且 $u$ 是
+$-\Delta_p u\ge0$ 的弱上解。则或者 $u=0$ a.e.，或者对每个球 $B$ 都有
+$\essinf_B u>0$。特别地，$u$ 的下半连续代表元（$p$-超调和函数）或恒为 $0$，
+或处处严格为正。
+\end{theorem}
+
+证明的主线是：\S2--\S5 证明弱 Harnack 不等式（定理 \ref{thm:weakharnack}）；
+\S6 用它完成传播与二分。
+
+固定 $\eps>0$，记 $\ub=u+\eps$。则 $\ub\ge\eps>0$，$\nabla\ub=\nabla u$，
+且对任意实数 $t$，$\ub^{t}\in L^\infty_{\mathrm{loc}}$（当 $t<0$）或
+$\in L^1_{\mathrm{loc}}$。所有估计的常数将不依赖 $\eps$，最后令 $\eps\to0$。
+
+\section{幂函数的 Caccioppoli 能量估计}
+
+\begin{lemma}\label{lem:caccioppoli}
+设 $u$ 是非负弱上解，$\ub=u+\eps$。设 $t<0$，令 $w=\ub^{t/p}$。则对任意
+$\eta\in C_c^\infty(\R^n)$，$0\le\eta\le1$，有
+\begin{equation}\label{eq:cacc}
+\int \eta^p\,|\nabla w|^p\,dx\ \le\ C(n,p)\,(1+|t|)^p
+\int |\nabla\eta|^p\,w^p\,dx .
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+取 $\beta=t-(p-1)<0$，用检验函数 $\varphi=\eta^p\,\ub^{\beta}$。因
+$\eps\le\ub$ 而 $\beta<0$，故 $0\le\ub^\beta\le\eps^\beta$ 有界，且
+$\nabla\varphi=p\eta^{p-1}\ub^{\beta}\nabla\eta+\beta\,\eta^p\ub^{\beta-1}\nabla\ub$
+属 $L^p$、紧支，故 $\varphi\in W^{1,p}$ 非负且紧支，合法。代入
+\eqref{eq:supersol}（$\nabla u=\nabla\ub$）：
+\[
+0\le\int|\nabla\ub|^{p-2}\nabla\ub\cdot\Big(p\eta^{p-1}\ub^{\beta}\nabla\eta
++\beta\eta^p\ub^{\beta-1}\nabla\ub\Big).
+\]
+即
+\[
+\beta\int\eta^p\ub^{\beta-1}|\nabla\ub|^p
+\ \ge\ -p\int\eta^{p-1}\ub^{\beta}|\nabla\ub|^{p-2}\nabla\ub\cdot\nabla\eta .
+\]
+记 $I=\int\eta^p\ub^{\beta-1}|\nabla\ub|^p\ge0$。因 $\beta<0$，两边乘
+$-1$ 反号，得
+\begin{equation}\label{eq:cacc1}
+|\beta|\,I\ \le\ p\int\eta^{p-1}\ub^{\beta}|\nabla\ub|^{p-1}|\nabla\eta| .
+\end{equation}
+对右端被积函数写成
+$\big(\eta^{p-1}\ub^{(\beta-1)(p-1)/p}|\nabla\ub|^{p-1}\big)
+\cdot\big(\ub^{(\beta+p-1)/p}|\nabla\eta|\big)$，
+用 Young 不等式 $ab\le\frac{\delta}{p'}a^{p'}+\frac{\delta^{1-p}}{p}b^{p}$
+（$p'=\frac{p}{p-1}$）：右端
+\[
+\le p\Big[\frac{\delta}{p'}\int\eta^p\ub^{\beta-1}|\nabla\ub|^p
++\frac{\delta^{1-p}}{p}\int\ub^{\beta+p-1}|\nabla\eta|^p\Big]
+=(p-1)\delta\,I+\delta^{1-p}\!\int\ub^{\beta+p-1}|\nabla\eta|^p.
+\]
+代入 \eqref{eq:cacc1}，取 $\delta=\frac{|\beta|}{2(p-1)}$ 以吸收：
+\[
+|\beta|I-(p-1)\delta I=\tfrac{|\beta|}{2}I
+\ \le\ \delta^{1-p}\int\ub^{\beta+p-1}|\nabla\eta|^p,
+\]
+故
+\begin{equation}\label{eq:cacc2}
+I\ \le\ \frac{2}{|\beta|}\Big(\frac{2(p-1)}{|\beta|}\Big)^{p-1}
+\int\ub^{\beta+p-1}|\nabla\eta|^p
+= \frac{2^p(p-1)^{p-1}}{|\beta|^{p}}\int\ub^{t}|\nabla\eta|^p,
+\end{equation}
+这里用到 $\beta+p-1=t$。另一方面 $w=\ub^{t/p}$，$\nabla w=\frac{t}{p}\ub^{t/p-1}\nabla\ub$，
+故 $|\nabla w|^p=\big(\frac{|t|}{p}\big)^p\ub^{t-p}|\nabla\ub|^p$，而
+$\ub^{t-p}=\ub^{\beta-1}$，于是 $\int\eta^p|\nabla w|^p
+=\big(\frac{|t|}{p}\big)^pI$，且 $w^p=\ub^{t}$。代入 \eqref{eq:cacc2}：
+\[
+\int\eta^p|\nabla w|^p\le\Big(\frac{|t|}{p}\Big)^p
+\frac{2^p(p-1)^{p-1}}{|\beta|^{p}}\int w^p|\nabla\eta|^p.
+\]
+因 $t<0$ 时 $|\beta|=|t|+p-1\ge|t|$ 且 $\ge p-1$，故
+$\frac{|t|}{|\beta|}\le1$，系数 $\le\frac{2^p(p-1)^{p-1}}{p^p}\le C(n,p)$；
+特别可写成 $C(n,p)(1+|t|)^p$ 的形式（放大常数）。得 \eqref{eq:cacc}。
+\end{proof}
+
+\section{负指数 Moser 迭代}
+
+记 $\chi=\frac{n}{n-p}=\frac{p^*}{p}>1$。回顾 Gagliardo--Nirenberg--Sobolev
+不等式：存在 $S=S(n,p)$，使对一切 $g\in W^{1,p}(\R^n)$ 且紧支，
+$\big(\int|g|^{p^*}\big)^{1/p^*}\le S\big(\int|\nabla g|^p\big)^{1/p}$。
+
+\begin{lemma}[反向 Hölder]\label{lem:reverse}
+设 $u$ 非负弱上解，$\ub=u+\eps$，$t<0$。对同心球 $B_{\rho'}\subset B_\rho
+\subset\R^n$（$\rho\le1$ 不需要），令
+$\bar J(t,\rho):=\fint_{B_\rho}\ub^{t}$。若进一步限定 $\tfrac12\rho\le\rho'\le\rho$，
+则存在仅依赖 $n,p$ 的 $C$ 使
+\begin{equation}\label{eq:reverse2}
+\bar J(\chi t,\rho')^{1/\chi}\ \le\
+\frac{C(n,p)(1+|t|)^p}{(1-\rho'/\rho)^p}\,\bar J(t,\rho).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+取 $w=\ub^{t/p}$，则 $w^{p}=\ub^{t}$，$w^{p^*}=\ub^{\chi t}$。取截断
+$\eta\in C_c^\infty(B_\rho)$，$\eta\equiv1$ 于 $B_{\rho'}$，$0\le\eta\le1$，
+$|\nabla\eta|\le\frac{2}{\rho-\rho'}$。由 Sobolev（作用于 $\eta w\in W^{1,p}$
+紧支）：
+\[
+\Big(\int_{B_{\rho'}}\ub^{\chi t}\Big)^{1/\chi}\!\!
+\le\Big(\int(\eta w)^{p^*}\Big)^{p/p^*}\!\!
+\le S^p\int|\nabla(\eta w)|^p
+\le S^p2^{p-1}\!\int\big(\eta^p|\nabla w|^p+|\nabla\eta|^p w^p\big).
+\]
+对第一项用引理 \ref{lem:caccioppoli}：$\int\eta^p|\nabla w|^p\le
+C(1+|t|)^p\int|\nabla\eta|^pw^p$。故
+\[
+\Big(\int_{B_{\rho'}}\ub^{\chi t}\Big)^{1/\chi}
+\le C(n,p)(1+|t|)^p\int_{B_\rho}|\nabla\eta|^p\ub^{t}
+\le \frac{C(n,p)(1+|t|)^p}{(\rho-\rho')^p}\int_{B_\rho}\ub^{t}.
+\]
+两边化为平均：左边
+$=\big(|B_{\rho'}|\bar J(\chi t,\rho')\big)^{1/\chi}
+=|B_{\rho'}|^{1/\chi}\bar J(\chi t,\rho')^{1/\chi}$，右边
+$=\frac{C(1+|t|)^p}{(\rho-\rho')^p}|B_\rho|\bar J(t,\rho)$。用
+$|B_\rho|=\omega_n\rho^n$，$1/\chi=\frac{n-p}{n}$，得
+\[
+\bar J(\chi t,\rho')^{1/\chi}\le
+\frac{C(1+|t|)^p}{(\rho-\rho')^p}\,
+\frac{|B_\rho|}{|B_{\rho'}|^{1/\chi}}\,\bar J(t,\rho).
+\]
+其中 $\frac{|B_\rho|}{|B_{\rho'}|^{1/\chi}}
+=\omega_n^{1-1/\chi}\frac{\rho^n}{\rho'^{\,n/\chi}}
+=\omega_n^{p/n}\rho^{n}\rho'^{-(n-p)}$。又
+$(\rho-\rho')^p=\rho'^{\,p}(\rho/\rho'-1)^p$，结合 $\rho'\le\rho$ 得
+$\frac{\rho^n\rho'^{-(n-p)}}{(\rho-\rho')^p}
+=\frac{(\rho/\rho')^{n-p}\rho^{p}}{(\rho-\rho')^p}
+\le\frac{(\rho/\rho')^{n-p}}{(1-\rho'/\rho)^p}$。当迭代中 $\rho/\rho'$
+一致有界（下方取 $\le2$）时，此因子 $\le\frac{C(n,p)}{(1-\rho'/\rho)^p}$，
+即得 \eqref{eq:reverse2}。
+\end{proof}
+
+\begin{proposition}[负指数一侧的 Moser 迭代]\label{prop:mineg}
+设 $u$ 非负弱上解，$\ub=u+\eps$。则对任意 $s>0$，
+\begin{equation}\label{eq:infbound}
+\essinf_{B_R}\ub\ \ge\ c(n,p,s)\,
+\Big(\fint_{B_{2R}}\ub^{-s}\Big)^{-1/s}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+不妨 $R=1$（\eqref{eq:infbound} 两边在缩放 $x\mapsto Rx$ 下同齐次，且方程与
+$\ub\ge0$ 上解结构标度不变）；一般情形令 $u_R(x)=u(Rx)$ 即可。取
+$t_0=-s<0$，$t_k=\chi^k t_0=-s\chi^k\to-\infty$。取半径
+$\rho_k=1+2^{-k}\in[1,2]$，则 $\rho_0=2$，$\rho_k\downarrow1$，且
+$\rho_{k+1}/\rho_k\ge1/2$、$1-\rho_{k+1}/\rho_k=\frac{2^{-k-1}}{1+2^{-k}}
+\ge\frac{2^{-k-1}}{2}=2^{-k-2}$。对每步用 \eqref{eq:reverse2}
+（$t=t_k$，$\rho=\rho_k$，$\rho'=\rho_{k+1}$）：
+\[
+\bar J(t_{k+1},\rho_{k+1})^{1/\chi}
+\le \frac{C(1+s\chi^k)^p}{(2^{-k-2})^p}\,\bar J(t_k,\rho_k)
+\le C\,(1+s)^p\,\chi^{kp}\,2^{(k+2)p}\,\bar J(t_k,\rho_k).
+\]
+记 $A_k=\bar J(t_k,\rho_k)^{1/t_k}=\bar J(t_k,\rho_k)^{-1/(s\chi^k)}$（因
+$t_k<0$，此为 $\ub$ 的 $|t_k|$-负幂平均，随 $k$ 单调地逼近 $\essinf$）。
+对上式取 $\frac{1}{t_{k+1}}=\frac{1}{\chi t_k}$ 次幂。因 $t_{k+1}<0$，
+不等号方向要留意：两边为正，取负次幂 $x\mapsto x^{1/t_{k+1}}$（指数为负）
+是递减的，故
+\[
+A_{k+1}=\bar J(t_{k+1},\rho_{k+1})^{1/t_{k+1}}
+\ \ge\ \big[C(1+s)^p\chi^{kp}2^{(k+2)p}\big]^{1/t_{k+1}}
+\,\bar J(t_k,\rho_k)^{1/(\chi t_{k+1})}.
+\]
+而 $\frac{1}{\chi t_{k+1}}=\frac{1}{\chi^2 t_k}$……为使递推干净，改记
+$a_k:=\log \bar J(t_k,\rho_k)$。上面的乘积不等式取对数：
+\[
+\tfrac1\chi a_{k+1}\le b_k+a_k,\qquad
+b_k:=\log\!\big(C(1+s)^p\chi^{kp}2^{(k+2)p}\big)=c_1+c_2 k,
+\]
+其中 $c_1=c_1(n,p,s)$，$c_2=c_2(n,p)>0$。即
+$a_{k+1}\le\chi a_k+\chi b_k$。除以 $t_{k+1}=\chi^{k+1}t_0$（$<0$，变号）：
+\[
+\frac{a_{k+1}}{t_{k+1}}\ \ge\ \frac{a_k}{\chi^k t_0}
++\frac{b_k}{\chi^k t_0}
+=\frac{a_k}{t_k}+\frac{b_k}{t_k}.
+\]
+故 $\log A_{k+1}=\frac{a_{k+1}}{t_{k+1}}\ge\frac{a_k}{t_k}
++\frac{b_k}{t_k}=\log A_k+\frac{b_k}{t_k}$，从而
+\[
+\log A_{m}\ \ge\ \log A_0+\sum_{k=0}^{m-1}\frac{b_k}{t_k}
+=\log A_0-\frac1s\sum_{k=0}^{m-1}\frac{c_1+c_2k}{\chi^k}.
+\]
+由于 $\chi>1$，级数 $\sum_k\frac{c_1+c_2k}{\chi^k}$ 收敛，其和
+$=:\Sigma(n,p,s)<\infty$。于是对一切 $m$，
+$\log A_m\ge\log A_0-\frac{\Sigma}{s}$，即
+$A_m\ge e^{-\Sigma/s}A_0=:c(n,p,s)\,A_0$。
+
+最后令 $m\to\infty$。由 $t_m\to-\infty$ 及 $L^{t}$-平均的单调性，
+\[
+A_m=\Big(\fint_{B_{\rho_m}}\ub^{t_m}\Big)^{1/t_m}
+\ \xrightarrow[m\to\infty]{}\ \essinf_{B_1}\ub,
+\]
+（这是负幂 $L^t$-范数当 $t\to-\infty$ 收敛到本质下确界的标准事实，见引理
+\ref{lem:limit}），而 $A_0=\big(\fint_{B_2}\ub^{-s}\big)^{-1/s}$。故
+$\essinf_{B_1}\ub\ge c(n,p,s)\big(\fint_{B_2}\ub^{-s}\big)^{-1/s}$，即
+\eqref{eq:infbound}。
+\end{proof}
+
+\begin{lemma}\label{lem:limit}
+设 $0<m:=\essinf_{B}\ub$（$B$ 有限测度，$\ub\ge\eps>0$ 可测）。则
+$\big(\fint_B\ub^{t}\big)^{1/t}\to m$ 当 $t\to-\infty$。
+\end{lemma}
+\begin{proof}
+记 $N(t)=\big(\fint_B\ub^{t}\big)^{1/t}$。对 $t<0$，$\ub^{t}\le m^{t}$
+（因 $\ub\ge m$，负指数反向），故 $\fint_B\ub^t\le m^t$，取 $1/t<0$ 次幂
+（递减）得 $N(t)\ge m$。另一方面，对任意 $\delta>0$，集合
+$E_\delta=\{\ub<m+\delta\}$ 满足 $|E_\delta|>0$（否则 $\essinf\ge m+\delta$），
+于是 $\fint_B\ub^t\ge\frac{|E_\delta|}{|B|}(m+\delta)^t$，取 $1/t$ 次幂
+（$t<0$）得
+$N(t)\le(m+\delta)\big(|E_\delta|/|B|\big)^{1/t}\to(m+\delta)$
+当 $t\to-\infty$（因底数 $\in(0,1]$，$1/t\to0^-$，幂 $\to1$）。故
+$\limsup_{t\to-\infty}N(t)\le m+\delta$，令 $\delta\to0$ 得
+$\limsup N(t)\le m$。结合下界即得极限为 $m$。
+\end{proof}
+
+\section{对数估计与 John--Nirenberg 不等式}
+
+\begin{lemma}[对数估计]\label{lem:log}
+设 $u$ 非负弱上解，$\ub=u+\eps$，$v=\log\ub$。则对任意球 $B_r(y)$，
+\begin{equation}\label{eq:logosc}
+\fint_{B_r(y)}\big|v-v_{B_r(y)}\big|\,dx\ \le\ C(n,p),
+\qquad v_{B_r(y)}:=\fint_{B_r(y)}v .
+\end{equation}
+即 $v\in\mathrm{BMO}$，其 BMO 半范一致有界（不依赖 $r,y,\eps$）。
+\end{lemma}
+
+\begin{proof}
+在 \eqref{eq:supersol} 中取检验函数 $\varphi=\eta^p\ub^{1-p}$，其中
+$\eta\in C_c^\infty(B_{2r}(y))$，$\eta\equiv1$ 于 $B_r(y)$，
+$|\nabla\eta|\le2/r$。由 $\ub\ge\eps$ 知 $\ub^{1-p}$ 有界（$p>1$），
+$\varphi$ 合法。注意 $\nabla v=\ub^{-1}\nabla\ub$，
+$|\nabla v|^p=\ub^{-p}|\nabla\ub|^p$。代入并计算（同引理
+\ref{lem:caccioppoli}，取 $\beta=1-p$，$t=0$）：
+\[
+(p-1)\int\eta^p\ub^{-p}|\nabla\ub|^p
+\le p\int\eta^{p-1}\ub^{1-p}|\nabla\ub|^{p-1}|\nabla\eta|.
+\]
+对右端 Young：$\le(p-1)\cdot\tfrac12\int\eta^p\ub^{-p}|\nabla\ub|^p
++C(p)\int|\nabla\eta|^p$，吸收得
+\[
+\int_{B_r(y)}|\nabla v|^p
+\le\int\eta^p|\nabla v|^p\le C(p)\int|\nabla\eta|^p
+\le C(p)\,\frac{2^p}{r^p}|B_{2r}|=C(n,p)\,r^{n-p}.
+\]
+由 Poincaré 不等式（$W^{1,p}$，指数 $1\le p$）及 Hölder：
+\[
+\fint_{B_r}|v-v_{B_r}|
+\le\Big(\fint_{B_r}|v-v_{B_r}|^p\Big)^{1/p}
+\le C(n,p)\,r\Big(\fint_{B_r}|\nabla v|^p\Big)^{1/p}
+\le C(n,p)\,r\Big(\frac{r^{n-p}}{r^n}\Big)^{1/p}=C(n,p).
+\]
+得 \eqref{eq:logosc}。
+\end{proof}
+
+\begin{lemma}[John--Nirenberg，立方体形式]\label{lem:jn}
+设 $Q_0\subset\R^n$ 为一立方体，$v\in L^1(Q_0)$ 满足
+\begin{equation}\label{eq:bmo}
+\sup_{Q\subseteq Q_0}\ \fint_Q|v-v_Q|\ =:K<\infty,
+\end{equation}
+上确界取遍 $Q_0$ 内所有与之平行的子立方体。则存在仅依赖维数 $n$ 的常数
+$c_1,c_2>0$，使
+\begin{equation}\label{eq:jnexp}
+\big|\{x\in Q_0:|v-v_{Q_0}|>\lambda\}\big|
+\ \le\ c_1 e^{-c_2\lambda/K}\,|Q_0|,\qquad\forall\lambda>0.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+不妨设 $K=1$（用 $v/K$ 代替 $v$）。定义
+\[
+F(\lambda)=\sup_{Q\subseteq Q_0}\frac{1}{|Q|}
+\big|\{x\in Q:|v-v_Q|>\lambda\}\big|,
+\]
+只需证 $F(\lambda)\le c_1e^{-c_2\lambda}$。对固定子立方体 $Q$，
+对函数 $v-v_Q$ 在 $Q$ 上作 Calderón--Zygmund 分解，阈值取 $\alpha>1$：
+反复二等分 $Q$，保留那些首次满足
+$\fint_{Q'}|v-v_Q|>\alpha$ 的极大子立方体 $\{Q_j\}$。由极大性，其父立方体
+$\widetilde{Q_j}$ 满足 $\fint_{\widetilde{Q_j}}|v-v_Q|\le\alpha$，而
+$|\widetilde{Q_j}|=2^n|Q_j|$，故
+\begin{equation}\label{eq:cz1}
+\alpha<\fint_{Q_j}|v-v_Q|\le2^n\fint_{\widetilde{Q_j}}|v-v_Q|\le2^n\alpha.
+\end{equation}
+诸 $Q_j$ 互不相交。由 \eqref{eq:cz1} 第一式与 $K=1$：
+\[
+\sum_j|Q_j|<\frac1\alpha\sum_j\int_{Q_j}|v-v_Q|
+\le\frac1\alpha\int_Q|v-v_Q|\le\frac{|Q|}\alpha .
+\]
+其次，由 Lebesgue 微分定理，在 $Q\setminus\bigcup_jQ_j$ 上几乎处处
+$|v-v_Q|\le\alpha$。再估计各 $Q_j$ 上平均的偏移：由 \eqref{eq:cz1} 第二式，
+\[
+|v_{Q_j}-v_Q|=\Big|\fint_{Q_j}(v-v_Q)\Big|\le\fint_{Q_j}|v-v_Q|\le2^n\alpha.
+\]
+于是对 $\lambda>2^n\alpha$，$\{x\in Q:|v-v_Q|>\lambda\}$ 至多落在
+$\bigcup_jQ_j$ 内，且在其中
+\[
+\{|v-v_Q|>\lambda\}\subseteq\{|v-v_{Q_j}|>\lambda-2^n\alpha\}.
+\]
+故对每个 $Q_j$（应用 $F$ 的定义于子立方体 $Q_j$）：
+\[
+\big|\{x\in Q:|v-v_Q|>\lambda\}\big|
+\le\sum_j\big|\{x\in Q_j:|v-v_{Q_j}|>\lambda-2^n\alpha\}\big|
+\le F(\lambda-2^n\alpha)\sum_j|Q_j|.
+\]
+除以 $|Q|$ 并对 $Q$ 取上确界，配合 $\sum_j|Q_j|\le|Q|/\alpha$：
+\begin{equation}\label{eq:jnrec}
+F(\lambda)\ \le\ \frac1\alpha\,F(\lambda-2^n\alpha),\qquad\lambda>2^n\alpha.
+\end{equation}
+固定 $\alpha=2$（$>1$）。记 $h=2^n\alpha=2^{n+1}$。因显然 $F\le1$，由
+\eqref{eq:jnrec} 迭代：对 $\lambda\in\big((k-1)h,\,kh\big]$（$k\ge1$）有
+$F(\lambda)\le\alpha^{-(k-1)}F(\lambda-(k-1)h)\le\alpha^{-(k-1)}$。而
+$k-1\ge\lambda/h-1$，故
+\[
+F(\lambda)\le\alpha^{-(k-1)}\le\alpha\cdot\alpha^{-\lambda/h}
+=2\,e^{-(\log2)\lambda/2^{n+1}}=:c_1e^{-c_2\lambda},
+\]
+其中 $c_1=2$，$c_2=(\log2)2^{-(n+1)}>0$ 仅依赖 $n$。取 $Q=Q_0$ 即得
+\eqref{eq:jnexp}（还原 $K$：以 $\lambda/K$ 代 $\lambda$）。
+\end{proof}
+
+\begin{corollary}[小正、负幂平均可比]\label{cor:cross}
+设 $u$ 非负弱上解，$\ub=u+\eps$。存在仅依赖 $n,p$ 的 $s_0>0$ 与 $C_0$，
+使对任意球 $B=B_r(y)$ 及其两倍球 $B_{2r}(y)$，
+\begin{equation}\label{eq:cross}
+\Big(\fint_{B}\ub^{\,s_0}\Big)\Big(\fint_{B}\ub^{-s_0}\Big)\ \le\ C_0 .
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+令 $v=\log\ub$。由引理 \ref{lem:log}，$v$ 在包含 $B$ 的立方体上有一致 BMO
+界 $K=C(n,p)$（球与立方体的平均互相控制，仅改变常数：任一球含于边长
+$2r$ 的立方体、又含边长 $2r/\sqrt n$ 的立方体，测度之比仅依赖 $n$，故
+\eqref{eq:bmo} 型上确界仍 $\le C(n,p)$）。取包含 $B$ 的立方体 $Q_0$，
+$|Q_0|\le C(n)|B|$。由引理 \ref{lem:jn}，
+\[
+\fint_{Q_0}e^{s_0|v-v_{Q_0}|}
+=\int_0^\infty s_0e^{s_0\lambda}\frac{|\{|v-v_{Q_0}|>\lambda\}\cap Q_0|}{|Q_0|}\,d\lambda
+\le1+\int_0^\infty s_0e^{s_0\lambda}c_1e^{-c_2\lambda/K}d\lambda,
+\]
+当 $s_0<c_2/K$（记此上界为 $s_0(n,p)$）时积分收敛，得
+$\fint_{Q_0}e^{s_0|v-v_{Q_0}|}\le C(n,p)$。于是
+$\fint_{Q_0}e^{s_0(v-v_{Q_0})}\le C$ 且
+$\fint_{Q_0}e^{-s_0(v-v_{Q_0})}\le C$。将平均缩回球 $B$（$|Q_0|\le C(n)|B|$，
+被积非负）：
+\[
+\fint_{B}\ub^{s_0}=e^{s_0v_{Q_0}}\fint_B e^{s_0(v-v_{Q_0})}
+\le C(n)e^{s_0v_{Q_0}}\fint_{Q_0}e^{s_0(v-v_{Q_0})}\le Ce^{s_0v_{Q_0}},
+\]
+同理 $\fint_B\ub^{-s_0}\le Ce^{-s_0v_{Q_0}}$。两式相乘，$e^{\pm s_0v_{Q_0}}$
+相消，得 \eqref{eq:cross}。
+\end{proof}
+
+\section{弱 Harnack 不等式}
+
+\begin{theorem}[弱 Harnack]\label{thm:weakharnack}
+设 $1<p<n$，$u$ 为非负弱上解。存在仅依赖 $n,p$ 的 $s_0>0$ 与 $C_H$，使对
+每个球 $B_R(y)\subset\R^n$，
+\begin{equation}\label{eq:wh}
+\Big(\fint_{B_{2R}(y)}u^{\,s_0}\Big)^{1/s_0}\ \le\ C_H\,\essinf_{B_R(y)}u .
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+仍先证 $\ub=u+\eps$ 的版本，常数与 $\eps$ 无关。缩放使 $y=0$；对
+\eqref{eq:cross} 用于球 $B_{2R}$（把上文的 $B$ 取成 $B_{2R}$）得
+\[
+\Big(\fint_{B_{2R}}\ub^{s_0}\Big)^{1/s_0}
+\le C_0^{1/s_0}\Big(\fint_{B_{2R}}\ub^{-s_0}\Big)^{-1/s_0}.
+\]
+再对右端用命题 \ref{prop:mineg}（取 $s=s_0$，其中球对为
+$B_R\subset B_{2R}$）：
+\[
+\Big(\fint_{B_{2R}}\ub^{-s_0}\Big)^{-1/s_0}
+\le c(n,p,s_0)^{-1}\,\essinf_{B_R}\ub .
+\]
+两式合并：
+\[
+\Big(\fint_{B_{2R}}\ub^{s_0}\Big)^{1/s_0}
+\le C_H(n,p)\,\essinf_{B_R}\ub .
+\]
+最后令 $\eps\to0^+$：左端由单调收敛（$\ub^{s_0}=(u+\eps)^{s_0}\downarrow
+u^{s_0}$）趋于 $\big(\fint_{B_{2R}}u^{s_0}\big)^{1/s_0}$；右端
+$\essinf_{B_R}(u+\eps)=\essinf_{B_R}u+\eps\downarrow\essinf_{B_R}u$。
+得 \eqref{eq:wh}。
+\end{proof}
+
+\begin{corollary}\label{cor:zero}
+若某球 $B_R(y)$ 上 $\essinf_{B_R(y)}u=0$，则 $u=0$ a.e.\ 于 $B_{2R}(y)$。
+\end{corollary}
+\begin{proof}
+由 \eqref{eq:wh}，$\fint_{B_{2R}(y)}u^{s_0}\le(C_H\cdot0)^{s_0}=0$。因
+$u\ge0$，故 $u=0$ a.e.\ 于 $B_{2R}(y)$。
+\end{proof}
+
+\section{传播与二分法：定理 \ref{thm:main} 的证明}
+
+\begin{proof}[定理 \ref{thm:main} 的证明]
+分两种情形。
+
+\medskip\noindent\textbf{情形 A：存在球 $B_{R_0}(y_0)$ 使
+$\essinf_{B_{R_0}(y_0)}u=0$。}\ 我们证明此时 $u=0$ a.e.\ 于 $\R^n$。由
+推论 \ref{cor:zero}，$u=0$ a.e.\ 于 $B_{2R_0}(y_0)$。特别地
+$\essinf_{B_{2R_0}(y_0)}u=0$，再用推论 \ref{cor:zero}（半径 $2R_0$）得
+$u=0$ a.e.\ 于 $B_{4R_0}(y_0)$。归纳：若 $u=0$ a.e.\ 于
+$B_{2^kR_0}(y_0)$，则 $\essinf_{B_{2^kR_0}(y_0)}u=0$，推论 \ref{cor:zero}
+给出 $u=0$ a.e.\ 于 $B_{2^{k+1}R_0}(y_0)$。这里\emph{关键地}用到定义域是整个
+$\R^n$（无边界），故半径可无限翻倍。由于
+\[
+\bigcup_{k\ge0}B_{2^kR_0}(y_0)=\R^n,
+\]
+且可数并的零测集之并仍为零测，得 $u=0$ a.e.\ 于 $\R^n$。
+
+\medskip\noindent\textbf{情形 B：对每个球 $B$ 都有 $\essinf_B u>0$.}\ 这正是
+定理结论的第二种情形。
+
+\medskip 情形 A、B 恰好穷尽且互斥（B 是 A 的否定），故 $u=0$ a.e.\ 或
+对每个球 $\essinf_B u>0$。
+
+\medskip\noindent\textbf{逐点结论.}\ 弱上解可在一零测集上修正为其下半连续
+代表元 $u^*$（$p$-超调和函数），满足
+$u^*(x)=\lim_{r\to0}\essinf_{B_r(x)}u$。该极限随 $r\downarrow0$ 单调不减，
+故 $u^*(x)=\sup_{r>0}\essinf_{B_r(x)}u$。
+\begin{itemize}[leftmargin=1.4em]
+\item 情形 A：$u=0$ a.e.，故对每个 $x,r$ 有 $\essinf_{B_r(x)}u=0$，于是
+$u^*\equiv0$。
+\item 情形 B：对每个 $x$ 取任一 $r>0$，$u^*(x)\ge\essinf_{B_r(x)}u>0$，
+故 $u^*>0$ 处处成立。
+\end{itemize}
+即 $u^*\equiv0$ 或 $u^*>0$。$\qquad\blacksquare$
+\end{proof}
+
+\begin{remark}
+条件 $1<p<n$ 在两处使用：其一，Sobolev 指数 $p^*=\frac{np}{n-p}$ 有限，
+从而 $\chi=\frac{n}{n-p}>1$，使 §3 的 Moser 迭代能"自我改进"（每步幂次乘
+$\chi$，级数 $\sum k\chi^{-k}$ 收敛）；其二，$p<n$ 保证弱 Harnack 中正指数
+区间非空。当 $p\ge n$ 时结论仍成立，但需改用 $p$-容量/对数型 Sobolev 的
+陈述。
+\end{remark}
+
+\begin{remark}
+在\emph{有界连通}区域 $\Omega$ 上，情形 A 的翻倍会触及 $\partial\Omega$，
+应改证"零集 $Z=\{u^*=0\}$ 在 $\Omega$ 中既开又闭"：推论 \ref{cor:zero}
+给出 $Z$ 为开（若 $x\in Z$ 则某小球上 $\essinf=0$，该球含于 $Z$）；下半
+连续给出 $Z$ 为闭；由 $\Omega$ 连通，$Z=\varnothing$ 或 $Z=\Omega$。
+$\R^n$ 上翻倍论证是这一拓扑论证的简化。
+\end{remark}
+
+\end{document}

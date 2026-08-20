@@ -55,5 +55,8 @@ ctrl+r，反撤销
 - .encode(str): 切词+编码，默认可能有特殊符号，返回list[int]
 - .apply_chat_template: 格式化
 
+3. tensorDict
+- 就比普通dict多了一个批量操作
+
 ---
 uv pip install vllm --dry-run：先查看依赖，不安装
